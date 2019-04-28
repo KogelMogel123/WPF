@@ -63,12 +63,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Konwertery.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelWidoku\Zadania.cs" />
     <Compile Include="ModelWidoku\Zadanie.cs" />
     <Compile Include="Model\PlikXml.cs" />
     <Compile Include="Model\RelayCommand.cs" />

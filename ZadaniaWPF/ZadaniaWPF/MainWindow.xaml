@@ -4,9 +4,64 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZadaniaWPF"
+        xmlns:mw="clr-namespace:ZadaniaWPF.ModelWidoku"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ZadaniaWPF" Height="500" Width="500">
+    <Window.DataContext>
+        <mw:Zadania />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="stylPrzycisku" TargetType="Button">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Width" Value="85" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
+    </Window.Resources>
     <Grid>
-        
+        <TextBlock Margin="10,10,0,0" HorizontalAlignment="Left"
+            VerticalAlignment="Top" Text="Liczba zadań: ">
+        <Run Text="{Binding Path=ListaZadań.Count, Mode=OneWay}" />
+        </TextBlock>
+        <ListBox x:Name="lbListaZadań" Margin="10,35,10,200"
+            ItemsSource="{Binding Path=ListaZadań}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Margin="3">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Opis, Mode=OneWay}" FontSize="20" />
+                            <Button Content="Zrealizowane" Command="{Binding Path=OznaczJakoZrealizowane}" Style="{StaticResource stylPrzycisku}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled,
+                                    Mode=OneWay, Converter={StaticResource boolToVisibility}}"/>
+                            <Button Content="Niezrealizowane" Command="{Binding Path=OznaczJakoNiezrealizowane}" Style="{StaticResource stylPrzycisku}" 
+                                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled,
+                                    Mode=OneWay, Converter={StaticResource boolToVisibility}}"/>
+                        </StackPanel>
+                        <TextBlock>
+                            Termin: <Run Text="{Binding Path=PlanowanyTerminRealizacji,
+                            Mode=OneWay, StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=pl-PL}" />,
+                            Utworzone: <Run Text="{Binding Path=DataUtworzenia,
+                            Mode=OneWay, StringFormat={}{0:dd MMMM yyyy},
+                            ConverterCulture=pl-PL}" />
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Control.Margin" Value="3" />
+                    <Setter Property="Control.BorderBrush" Value="Black" />
+                    <Setter Property="Control.BorderThickness" Value="1" />
+                    <Style.Triggers>
+                        <Trigger Property="Control.IsMouseOver" Value="True">
+                            <Setter Property="Control.Background" Value="LightGray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
 </Window>
