@@ -69,7 +69,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelWidoku\Zadanie.cs" />
     <Compile Include="Model\PlikXml.cs" />
+    <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="Model\Zadania.cs" />
     <Compile Include="Model\Zadanie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
